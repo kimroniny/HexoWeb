@@ -87,10 +87,26 @@ class BackUp():
     def post(self, *args, **kwargs):
         pass
 
-class UpLoadMd(tornado.web.RequestHandler):
+class UpLoadMds(tornado.web.RequestHandler):
     def post(self, *args, **kwargs):
         files = self.request.files
         for file in files:
+            fname, fbody, ftype = file['filename'], file['body'], file['content_type']
+            fpath = os.path.join(folder_posts, fname)
+            with open(fpath, 'wb') as f:
+                f.write(fbody)
+            fnames = fname.split('.')
+            if len(fnames) > 1:
+                fname = '.'.join(fnames[:-1])
+            file_folder = os.path.join(folder_posts, fname)
+            if not os.path.exists(file_folder):
+                os.makedirs(file_folder)
+
+# 前端选择某个markdown，然后上传images
+class UpLoadImgs(tornado.web.RequestHandler):
+    def post(self, *args, **kwargs):
+        pass
+
 
 
 def make_app():
@@ -100,7 +116,8 @@ def make_app():
         (r"generate/", Generate),
         (r"getall/", GetAll),
         (r"backup/", BackUp),
-        (r"upload/", UpLoad),
+        (r"upload/", UpLoadMds),
+        (r"uploadimg/", )
     ])
 
 def getArg():
