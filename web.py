@@ -199,7 +199,7 @@ class audio_class_detect(tornado.web.RequestHandler):
             # http头 浏览器自动识别为文件下载
             self.set_header('Content-Type', 'application/octet-stream')
             # 下载时显示的文件名称
-            self.set_header('Content-Disposition', 'attachment; filename=%s' % filename.encode('utf-8'))
+            self.set_header('Content-Disposition', 'attachment; filename=%s' % filename.encode('utf-8')) # filename can not be Chinese. Otherwise, encoding error happens.
             filepath = os.path.join(self.path_post, filename)
             with codecs.open(filepath, 'r', encoding='utf-8') as f:
                 while True:
