@@ -1,0 +1,21 @@
+================help_begin================
+type: n_p
+    - param: filename
+type: g
+type: d
+type: g_d
+type: u
+    - param: file_md
+    - param: file_img
+        - param: img_dir_name
+type: git_add
+type: git_commit
+    - param: commit_msg
+type: git_push
+type: help
+type: list
+type: rm
+    - param: filename(with suffix .md)
+type: download
+    - param: filename(with suffix .md)
+================help_end================
